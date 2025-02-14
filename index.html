@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación de Apostilla</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white flex flex-col items-center justify-center min-h-screen">
+    <!-- Contenedor de la imagen header -->
+    <img src="header.png" alt="Gobierno Bolivariano de Venezuela" class="mx-auto w-full h-auto">
+    
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mt-8 mb-8"> <!-- Agregado 'mt-8' para margen arriba y 'mb-8' para margen abajo -->
+        <h1 class="text-xl font-bold text-center text-gray-700">Validación de Apostilla</h1>
+        <p class="text-gray-600 text-center mt-2">Ingrese el código de apostilla para su validación</p>
+        <form class="mt-4">
+            <label for="codigo" class="block text-gray-700">Código de Apostilla</label>
+            <input type="text" id="codigo" name="codigo" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1" placeholder="Ingrese su código" required>
+            <button type="submit" class="w-full bg-blue-400 text-white py-2 rounded-lg mt-4 hover:bg-blue-600">Validar</button>
+        </form>
+    </div>
+
+    <script>
+        const validCodes = ["ABC123", "XYZ789", "206944512019"]; // Lista de códigos válidos
+    
+        document.querySelector("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const inputField = document.getElementById("codigo");
+            const errorMessage = document.getElementById("error-message");
+            const codigoIngresado = inputField.value.trim();
+    
+            // Expresión regular: solo letras mayúsculas y números, mínimo 6 caracteres
+            const codigoValido = /^[A-Z0-9]{6,}$/.test(codigoIngresado);
+    
+            if (!codigoValido) {
+                errorMessage.textContent = "Formato inválido: use solo letras mayúsculas y números (mínimo 6 caracteres).";
+                inputField.classList.add("border-red-500");
+                return;
+            }
+    
+            errorMessage.textContent = ""; // Limpiar mensaje de error
+            inputField.classList.remove("border-red-500");
+    
+            if (validCodes.includes(codigoIngresado)) {
+    alert("✅ Código válido. Redirigiendo al archivo PDF...");
+    
+    // URL completa de la subcarpeta correcta
+    const baseUrl = "http://validarapostilla-mppregov.com.ve/ReportesPdf"; 
+    const pdfFilePath = `${baseUrl}/apostilla_${codigoIngresado}.pdf`;
+
+    window.location.href = pdfFilePath;
+} else {
+    errorMessage.textContent = "❌ Código inválido. Verifique e intente nuevamente.";
+}
+
+        });
+    </script>
+    
+    <!-- Espacio para mostrar mensajes de error -->
+    <p id="error-message" class="text-red-500 text-sm mt-2"></p>
+    
+    
+    <!-- Espacio para mostrar mensajes de error -->
+    <p id="error-message" class="text-red-500 text-sm mt-2"></p>
+    
+    
+<!-- Footer -->
+<footer class="bg-[#082636] text-white py-6 mt-8 w-full">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-between">
+            
+            <!-- Sección de productos y servicios -->
+            <div class="w-full md:w-1/3 mb-4">
+                <h4 class="font-semibold text-lg mb-2">Nuestros productos y servicios</h4>
+                <ul>
+                    <li><a href="index.html" class="text-white hover:text-blue-400">Inicio</a></li>
+                </ul>
+            </div>
+
+            <!-- Sección de contacto -->
+            <div class="w-full md:w-1/3 mb-4">
+                <h4 class="font-semibold text-lg mb-2">Contacte con nosotros</h4>
+                <ul>
+                    <li><a href="page/contactus" class="text-white hover:text-blue-400">Contáctenos</a></li>
+                </ul>
+                <ul class="mt-2">
+                  
+                    <li><i class="fa fa-envelope"></i> <span>notificaciones.cancilleria@mppre.gob.ve</span></li>
+                </ul>
+            </div>
+
+            <!-- Sección acerca de -->
+            <div class="w-full md:w-1/3 mb-4">
+                <h4 class="font-semibold text-lg mb-2">Sistema de Legalización y Apostilla Electrónica</h4>
+                <p class="text-sm leading-tight">
+                    Somos un equipo apasionado cuya meta es mejorar la vida de cada uno a través de productos disruptivos. 
+                    Construimos grandes soluciones para optimizar el rendimiento de pequeñas o medianas empresas.
+                </p>
+                <p class="text-sm mt-2">
+                    <small> - <a href="page/aboutus.html" class="text-white hover:text-blue-400">Acerca de</a></small>
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center mt-6">
+            <p class="text-sm text-gray-400">
+                &copy; <span itemprop="name">Sistema de Legalización y Apostilla Electrónica</span> - Todos los derechos reservados
+            </p>
+        </div>
+    </div>
+</footer>
+
+ 
+</body>
+</html>
